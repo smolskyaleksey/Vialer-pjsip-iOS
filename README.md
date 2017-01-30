@@ -6,6 +6,8 @@ The most important part of the project is the "vialerbuild" script. It will:
 - build a fat static library.
 - wrap the fat library in a framework.
 
+Default the script will compile for all architectures. But without ssl, opus and video support.
+
 ### Usage:
 
 ## Requirements
