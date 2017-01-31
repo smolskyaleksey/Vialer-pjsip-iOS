@@ -213,6 +213,3 @@ xcuserdata/
 #tm_build_errors
 
 /pjsip/
-.vscode/*
-/lib/
-

@@ -1,5 +1,5 @@
 /* pjlib/include/pj/compat/os_auto.h.  Generated from os_auto.h.in by configure.  */
-/* $Id: os_auto.h.in 5543 2017-01-24 05:36:50Z nanang $ */
+/* $Id: os_auto.h.in 5485 2016-11-17 04:38:25Z ming $ */
 /* 
  * Copyright (C) 2008-2009 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -38,7 +38,6 @@
 /* #undef PJ_LINUX */
 /* #undef PJ_RTEMS */
 /* #undef PJ_SUNOS */
-/* #undef PJ_ANDROID */
 
 #if defined(PJ_WIN32_WINNT) && !defined(_WIN32_WINNT)
 #  define _WIN32_WINNT	PJ_WIN32_WINNT
