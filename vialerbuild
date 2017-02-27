@@ -649,10 +649,11 @@ function copy_headers () {
         find ${SSL_BUILD_DIR}/include/openssl -type f -exec bash -c 'copy_to_lib_dir "{}"' ';'
 
 
-    d="$BASE_DIR/Pod/vialer-pjsip-include/libzrtpcpp"
-    mkdir -p $d
-    cp ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/include/ZsrtpCWrapper.h $d
+    # d="$BASE_DIR/Pod/vialer-pjsip-include/libzrtpcpp"
+    # mkdir -p $d
+    cp ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/include/ZsrtpCWrapper.h "$BASE_DIR/Pod/vialer-pjsip-include/"
     cp ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/include/transport_zrtp.h "$BASE_DIR/Pod/vialer-pjsip-include/"
+    cp -R ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/zrtp/zrtp/libzrtpcpp/ "$BASE_DIR/Pod/vialer-pjsip-include/libzrtpcpp/"
     fi
 
     cd "$BASE_DIR"
