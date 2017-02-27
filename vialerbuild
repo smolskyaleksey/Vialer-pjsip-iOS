@@ -652,7 +652,7 @@ function copy_headers () {
     d="$BASE_DIR/Pod/vialer-pjsip-include/libzrtpcpp"
     mkdir -p $d
     cp ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/include/ZsrtpCWrapper.h $d
-    cp ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/include/transport_zrtp.h "$BASE_DIR/Pod/vialer-pjsip-include/pjmedia"
+    cp ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/include/transport_zrtp.h "$BASE_DIR/Pod/vialer-pjsip-include/"
     fi
 
     cd "$BASE_DIR"
