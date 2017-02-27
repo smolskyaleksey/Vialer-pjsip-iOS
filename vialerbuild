@@ -647,7 +647,12 @@ function copy_headers () {
     
     if [ $SSL_SUPPORT = true ]; then
         find ${SSL_BUILD_DIR}/include/openssl -type f -exec bash -c 'copy_to_lib_dir "{}"' ';'
-        find ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/include -type f -exec bash -c 'copy_to_lib_dir "{}"' ';'
+
+
+    d="$BASE_DIR/Pod/vialer-pjsip-include/libzrtpcpp"
+    mkdir -p $d
+    cp ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/include/ZsrtpCWrapper.h $d
+    cp ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/include/transport_zrtp.h "$BASE_DIR/Pod/vialer-pjsip-include/pjmedia"
     fi
 
     cd "$BASE_DIR"
