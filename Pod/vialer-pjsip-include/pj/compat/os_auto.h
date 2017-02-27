@@ -1,5 +1,5 @@
 /* pjlib/include/pj/compat/os_auto.h.  Generated from os_auto.h.in by configure.  */
-/* $Id: os_auto.h.in 5485 2016-11-17 04:38:25Z ming $ */
+/* $Id: os_auto.h.in 5543 2017-01-24 05:36:50Z nanang $ */
 /* 
  * Copyright (C) 2008-2009 Teluu Inc. (http://www.teluu.com)
  * Copyright (C) 2003-2008 Benny Prijono <benny@prijono.org>
@@ -28,7 +28,7 @@
  */
 
 /* Canonical OS name */
-#define PJ_OS_NAME "x86_64-apple-darwin_ios"
+#define PJ_OS_NAME "armv7s-apple-darwin_ios"
 
 /* Legacy macros */
 /* #undef PJ_WIN32 */
@@ -38,6 +38,7 @@
 /* #undef PJ_LINUX */
 /* #undef PJ_RTEMS */
 /* #undef PJ_SUNOS */
+/* #undef PJ_ANDROID */
 
 #if defined(PJ_WIN32_WINNT) && !defined(_WIN32_WINNT)
 #  define _WIN32_WINNT	PJ_WIN32_WINNT
@@ -174,7 +175,7 @@
 #define PJ_NATIVE_STRING_IS_UNICODE 0
 
 /* Pool alignment in bytes */
-#define PJ_POOL_ALIGNMENT 8
+#define PJ_POOL_ALIGNMENT 4
 
 /* The type of atomic variable value: */
 #define PJ_ATOMIC_VALUE_TYPE long
@@ -217,7 +218,7 @@
 
 /* SSL socket availability. */
 #ifndef PJ_HAS_SSL_SOCK
-/* #undef PJ_HAS_SSL_SOCK */
+#define PJ_HAS_SSL_SOCK 1
 #endif
 
 
