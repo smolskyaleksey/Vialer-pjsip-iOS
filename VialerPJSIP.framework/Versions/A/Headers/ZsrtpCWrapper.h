@@ -28,7 +28,7 @@
  * @{
  */
 
-#include <VialerPJSIP/stdint.h>
+#include <stdint.h>
 
 /*
  * Keep in synch with CryptoContext.h

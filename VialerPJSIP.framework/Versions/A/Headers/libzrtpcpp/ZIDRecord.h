@@ -18,7 +18,7 @@
 #ifndef _ZIDRECORD_H_
 #define _ZIDRECORD_H_
 
-#include <VialerPJSIP/stdint.h>
+#include <stdint.h>
 #include <VialerPJSIP/common/osSpecifics.h>
 /**
  * @file ZIDRecord.h

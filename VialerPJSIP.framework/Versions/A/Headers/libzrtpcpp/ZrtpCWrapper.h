@@ -35,7 +35,7 @@
  * @see ZRtp
  */
 
-#include <VialerPJSIP/stdint.h>
+#include <stdint.h>
 
 /**
  * Defines to specify the role a ZRTP peer has.

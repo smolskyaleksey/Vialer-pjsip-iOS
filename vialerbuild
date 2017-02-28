@@ -129,7 +129,7 @@ function show_help () {
     echo
     echo " -v, --version, version       Version info"
     echo
-    echo " Example usage: ./vialerbuild --ssl --opus --h264 --arch=armv7,i386,arm64"
+    echo " Example usage: ./vialerbuild --ssl --opus --h264  --arch=armv7,i386,arm64"
     echo " This will compile the newest pjsip version for the three architectures armv7,i386,arm64. With SSL encryption, H264 and the Opus codec."
     exit 1
 }
@@ -724,6 +724,7 @@ function create_framework {
         LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/inttypes.h/include\ <inttypes.h/" "$file"
         LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/OpenGLES\/ES3\/glext.h/include\ <OpenGLES\/ES3\/glext.h/" "$file"
 
+        LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/stdint.h/include\ <stdint.h/" "$file"
         EXIT_CODE=$?
         if [[ $EXIT_CODE != 0 ]]; then
             echo "Error processing file ${file}"

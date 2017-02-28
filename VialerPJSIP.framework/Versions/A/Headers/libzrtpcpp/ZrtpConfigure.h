@@ -30,7 +30,7 @@
  */
 
 #include <stdio.h>
-#include <VialerPJSIP/stdint.h>
+#include <stdint.h>
 #include <VialerPJSIP/list>
 #include <VialerPJSIP/string>
 #include <VialerPJSIP/vector>

@@ -32,7 +32,7 @@
  */
 
 #include <string.h>
-#include <VialerPJSIP/stdint.h>
+#include <stdint.h>
 #include <VialerPJSIP/libzrtpcpp/ZIDRecord.h>
 
 #define TIME_LENGTH      8      // 64 bit, can hold time on 64 bit systems

@@ -33,7 +33,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include <VialerPJSIP/stdint.h>
+#include <stdint.h>
 
 class __EXPORT ZrtpStateClass;
 /**

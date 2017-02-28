@@ -26,7 +26,7 @@
  * @{
  */
 
-#include <VialerPJSIP/stdint.h>
+#include <stdint.h>
 #include <VialerPJSIP/string>
 
 #include <VialerPJSIP/libzrtpcpp/ZrtpCodes.h>

@@ -34,7 +34,7 @@
  */
 
 #include <stdio.h>
-#include <VialerPJSIP/stdint.h>
+#include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
 

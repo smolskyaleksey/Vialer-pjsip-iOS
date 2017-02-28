@@ -8,7 +8,7 @@ For details, see http://sourceforge.net/projects/libb64
 #ifndef BASE64_CDECODE_H
 #define BASE64_CDECODE_H
 
-#include <VialerPJSIP/stdint.h>
+#include <stdint.h>
 
 #if defined(__cplusplus)
 extern "C"
