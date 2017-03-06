@@ -84,7 +84,7 @@ for i in "$@"; do
         OPUS_SUPPORT=true
         shift
         ;;
-        -h264 | --use-h264 | h264)
+        -h264 | --h264 | h264)
         H264_SUPPORT=true
         shift
         ;;
@@ -243,11 +243,11 @@ function build_ssl () {
     mkdir -p $SSL_BUILD_DIR
     mkdir -p "$SSL_BUILD_DIR/scripts/"
 
-    ssl_url="https://raw.githubusercontent.com/x2on/OpenSSL-for-iPhone/master/build-libssl.sh"
+    ssl_url="https://raw.githubusercontent.com/x2on/OpenSSL-for-iPhone/2316fa0cfba11f42aa9e4e04d7faa0da2d8a549e/build-libssl.sh"
     ssl_save_sh="$SSL_BUILD_DIR/build_libssl.sh"
 
-    ssl_scripts_url_1="https://raw.githubusercontent.com/x2on/OpenSSL-for-iPhone/master/scripts/build-loop-targets.sh"
-    ssl_scripts_url_2="https://raw.githubusercontent.com/x2on/OpenSSL-for-iPhone/master/scripts/build-loop-archs.sh"
+    ssl_scripts_url_1="https://raw.githubusercontent.com/x2on/OpenSSL-for-iPhone/2316fa0cfba11f42aa9e4e04d7faa0da2d8a549e/scripts/build-loop-targets/sh"
+    ssl_scripts_url_2="https://raw.githubusercontent.com/x2on/OpenSSL-for-iPhone/2316fa0cfba11f42aa9e4e04d7faa0da2d8a549e/scripts/build-loop-archs.sh"
 
     echo "Download build_libssl.sh"
     curl -L -# -o ${ssl_save_sh} ${ssl_url}
@@ -260,7 +260,7 @@ function build_ssl () {
     cd $SSL_BUILD_DIR
     
     chmod +x build_libssl.sh
-    ./build_libssl.sh --archs="${USE_ARCHS[*]// /\s}"
+    ./build_libssl.sh --cleanup --archs="x86_64 i386 arm64 armv7s armv7"
     mv include include2
     mkdir -p include
     mv include2 include/openssl
@@ -279,7 +279,10 @@ function build_ssl () {
 	cd $ZRTP_BUILD_DIR
 	mv ZRTP4PJ $PJSIP_SRC_DIR/third_party
 	cd $PJSIP_SRC_DIR/third_party/ZRTP4PJ/build/zsrtp
-	sed -i -e 's#'~/devhome/pjproject.git'#'"$PJSIP_SRC_DIR"'#' Makefile
+	sed -i '' -e 's#'~/devhome/pjproject.git'#'"$PJSIP_SRC_DIR"'#' Makefile
+	cd ../../zsrtp
+	sed -i '' -e 's/#define THIS_FILE "transport_zrtp.c"/#define THIS_FILE "transport_zrtp.c"\
+#define DYNAMIC_TIMER 1/' transport_zrtp.c
 	popd > /dev/null
 	echo "Downloaded ZRTP"
 }
