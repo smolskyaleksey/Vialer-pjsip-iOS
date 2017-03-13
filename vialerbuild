@@ -548,6 +548,20 @@ function _build () {
     make >> $arch_log 2>&1 &
     spinner $!
 
+
+    if [ $SSL_SUPPORT = true ]; then
+        cd $PJSIP_SRC_DIR/third_party/ZRTP4PJ/build/zsrtp
+        make dep >> $arch_log 2>&1 &
+        spinner $!
+
+        make >> $arch_log 2>&1 &
+        spinner $!
+        echo "$CFLAGS"
+        # export CFLAGS="${CFLAGS} -I${SSL_BUILD_DIR}/include"
+    fi
+
+    
+
     echo "Done building for $arch"
     echo "============================="
 
@@ -625,6 +639,13 @@ function copy_headers () {
     
     if [ $SSL_SUPPORT = true ]; then
         find ${SSL_BUILD_DIR}/include/openssl -type f -exec bash -c 'copy_to_lib_dir "{}"' ';'
+
+
+    # d="$BASE_DIR/Pod/vialer-pjsip-include/libzrtpcpp"
+    # mkdir -p $d
+    cp ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/include/ZsrtpCWrapper.h "$BASE_DIR/Pod/vialer-pjsip-include/"
+    cp ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/include/transport_zrtp.h "$BASE_DIR/Pod/vialer-pjsip-include/"
+    cp -R ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/zrtp/zrtp/libzrtpcpp/ "$BASE_DIR/Pod/vialer-pjsip-include/libzrtpcpp/"
     fi
 
     cd "$BASE_DIR"
@@ -695,6 +716,7 @@ function create_framework {
         LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/inttypes.h/include\ <inttypes.h/" "$file"
         LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/OpenGLES\/ES3\/glext.h/include\ <OpenGLES\/ES3\/glext.h/" "$file"
 
+        LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/stdint.h/include\ <stdint.h/" "$file"
         EXIT_CODE=$?
         if [[ $EXIT_CODE != 0 ]]; then
             echo "Error processing file ${file}"
