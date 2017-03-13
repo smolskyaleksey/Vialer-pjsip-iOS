@@ -129,7 +129,7 @@ function show_help () {
     echo
     echo " -v, --version, version       Version info"
     echo
-    echo " Example usage: ./vialerbuild --ssl --opus --h264  --arch=armv7,i386,arm64"
+    echo " Example usage: ./vialerbuild --ssl --opus --h264 --arch=armv7,i386,arm64"
     echo " This will compile the newest pjsip version for the three architectures armv7,i386,arm64. With SSL encryption, H264 and the Opus codec."
     exit 1
 }
@@ -239,31 +239,20 @@ function build_ssl () {
     
     echo "Use ssl"
     rm -rf $SSL_BUILD_DIR
-
     mkdir -p $SSL_BUILD_DIR
-    mkdir -p "$SSL_BUILD_DIR/scripts/"
-
-    ssl_url="https://raw.githubusercontent.com/x2on/OpenSSL-for-iPhone/2316fa0cfba11f42aa9e4e04d7faa0da2d8a549e/build-libssl.sh"
-    ssl_save_sh="$SSL_BUILD_DIR/build_libssl.sh"
-
-    ssl_scripts_url_1="https://raw.githubusercontent.com/x2on/OpenSSL-for-iPhone/2316fa0cfba11f42aa9e4e04d7faa0da2d8a549e/scripts/build-loop-targets/sh"
-    ssl_scripts_url_2="https://raw.githubusercontent.com/x2on/OpenSSL-for-iPhone/2316fa0cfba11f42aa9e4e04d7faa0da2d8a549e/scripts/build-loop-archs.sh"
-
-    echo "Download build_libssl.sh"
-    curl -L -# -o ${ssl_save_sh} ${ssl_url}
-
-    echo "Download libssl build scripts"
-    curl -L -# -o "$SSL_BUILD_DIR/scripts/build-loop-targets.sh" $ssl_scripts_url_1
-    curl -L -# -o "$SSL_BUILD_DIR/scripts/build-loop-archs.sh" $ssl_scripts_url_2
-
+    
     pushd . > /dev/null
     cd $SSL_BUILD_DIR
     
-    chmod +x build_libssl.sh
-    ./build_libssl.sh --cleanup --archs="x86_64 i386 arm64 armv7s armv7"
+    # Download OpenSSL repo.
+    ssl_url="https://github.com/x2on/OpenSSL-for-iPhone/archive/master.tar.gz"
+    curl -LO $ssl_url
+    tar zxf "master.tar.gz" --strip 1
+    rm "master.tar.gz"
+    ./build-libssl.sh --archs="${USE_ARCHS[*]// /\s}"
     mv include include2
     mkdir -p include
-    mv include2 include/openssl
+    mv include2/openssl include/openssl
     popd > /dev/null
     echo "Using SSL..."
 
@@ -559,20 +548,6 @@ function _build () {
     make >> $arch_log 2>&1 &
     spinner $!
 
-
-    if [ $SSL_SUPPORT = true ]; then
-        cd $PJSIP_SRC_DIR/third_party/ZRTP4PJ/build/zsrtp
-        make dep >> $arch_log 2>&1 &
-        spinner $!
-
-        make >> $arch_log 2>&1 &
-        spinner $!
-        echo "$CFLAGS"
-        # export CFLAGS="${CFLAGS} -I${SSL_BUILD_DIR}/include"
-    fi
-
-    
-
     echo "Done building for $arch"
     echo "============================="
 
@@ -650,13 +625,6 @@ function copy_headers () {
     
     if [ $SSL_SUPPORT = true ]; then
         find ${SSL_BUILD_DIR}/include/openssl -type f -exec bash -c 'copy_to_lib_dir "{}"' ';'
-
-
-    # d="$BASE_DIR/Pod/vialer-pjsip-include/libzrtpcpp"
-    # mkdir -p $d
-    cp ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/include/ZsrtpCWrapper.h "$BASE_DIR/Pod/vialer-pjsip-include/"
-    cp ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/include/transport_zrtp.h "$BASE_DIR/Pod/vialer-pjsip-include/"
-    cp -R ${PJSIP_SRC_DIR}/third_party/ZRTP4PJ/zsrtp/zrtp/zrtp/libzrtpcpp/ "$BASE_DIR/Pod/vialer-pjsip-include/libzrtpcpp/"
     fi
 
     cd "$BASE_DIR"
@@ -727,7 +695,6 @@ function create_framework {
         LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/inttypes.h/include\ <inttypes.h/" "$file"
         LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/OpenGLES\/ES3\/glext.h/include\ <OpenGLES\/ES3\/glext.h/" "$file"
 
-        LC_ALL=C sed -i '' "s/include\ <$PRODUCT_NAME\/stdint.h/include\ <stdint.h/" "$file"
         EXIT_CODE=$?
         if [[ $EXIT_CODE != 0 ]]; then
             echo "Error processing file ${file}"
