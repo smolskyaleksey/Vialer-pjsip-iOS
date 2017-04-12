@@ -122,8 +122,8 @@ extern "C" {
 
 #if !(defined(VMS) || defined(__VMS)) /* VMS uses logical names instead */
 #if defined(HEADER_CRYPTLIB_H) && !defined(OPENSSLDIR)
-#define ENGINESDIR "/Users/asmolski/Vialer-pjsip-iOS/pjsip/external/ssl/bin/iPhoneSimulator10.2-x86_64.sdk/lib/engines"
-#define OPENSSLDIR "/Users/asmolski/Vialer-pjsip-iOS/pjsip/external/ssl/bin/iPhoneSimulator10.2-x86_64.sdk"
+#define ENGINESDIR "/Users/asmolski/Vialer-pjsip-iOS/pjsip/external/ssl/bin/iPhoneSimulator10.3-x86_64.sdk/lib/engines"
+#define OPENSSLDIR "/Users/asmolski/Vialer-pjsip-iOS/pjsip/external/ssl/bin/iPhoneSimulator10.3-x86_64.sdk"
 #endif
 #endif
 
