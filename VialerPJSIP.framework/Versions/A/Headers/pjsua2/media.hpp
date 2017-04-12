@@ -1,4 +1,4 @@
-/* $Id: media.hpp 5273 2016-04-04 01:44:10Z riza $ */
+/* $Id: media.hpp 5581 2017-04-10 06:30:01Z ming $ */
 /*
  * Copyright (C) 2013 Teluu Inc. (http://www.teluu.com)
  *
@@ -108,7 +108,7 @@ struct MediaFormatVideo : public MediaFormat
 };
 
 /** Array of MediaFormat */
-typedef std::vector<MediaFormat*> MediaFormatVector;
+typedef std::vector<MediaFormat> MediaFormatVector;
 
 /**
  * This structure descibes information about a particular media port that

@@ -394,7 +394,8 @@ function download_pjsip () {
         PJSIP_VERSION=$latest_pjsip_tag
     fi
     
-    checkout_url="${PJSIP_BASE_URL}/tags/${PJSIP_VERSION}"
+    # checkout_url="${PJSIP_BASE_URL}/tags/${PJSIP_VERSION}"
+    checkout_url="${PJSIP_BASE_URL}/trunk"
 
     if [ $DOWNLOAD_PJSIP_SRC = true ]; then
         echo "Download PJSIP version: ${PJSIP_VERSION}"
